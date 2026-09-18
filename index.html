@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+<meta name="description" content="Generador de semillas Minecraft: crea mundos, elige bioma y recibe guía de inicio con IA.">
+<title>Generador de Semillas — Discohikorybrs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<script src="https://js.puter.com/v2/"></script>
+<style>
+:root{--bg:#04060d;--panel:rgba(15,20,35,.55);--line:rgba(139,92,246,.2);--text:#f5f7ff;--muted:#9da8c5;--a:#8b5cf6}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.6}
+.bg-grid{position:fixed;inset:0;z-index:-2;opacity:.14;background-image:linear-gradient(#293354 1px,transparent 1px),linear-gradient(90deg,#293354 1px,transparent 1px);background-size:44px 44px}
+header{max-width:900px;margin:auto;padding:20px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:50;background:rgba(4,6,13,.8);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+.brand{font:700 16px 'Space Grotesk';color:#fff;text-decoration:none}
+.back{color:#b39aff;text-decoration:none;font-size:13px;border:1px solid var(--line);padding:8px 14px;border-radius:8px}
+main{max-width:900px;margin:auto;padding:24px}
+.hero-t{text-align:center;padding:26px 0 6px}
+.hero-t h1{font:700 clamp(28px,4.5vw,44px) 'Space Grotesk';margin:10px 0;background:linear-gradient(90deg,#fff 25%,#86efac);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 24px rgba(74,222,128,.3))}
+.eyebrow{color:#86efac;font-size:10px;font-family:'Press Start 2P',monospace;letter-spacing:2px}
+.lead{color:var(--muted);max-width:620px;margin:0 auto}
+.glass{background:var(--panel);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);border-radius:15px;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.card{padding:24px;margin:18px 0}
+.seednum{font:700 clamp(30px,5vw,46px) monospace;color:#86efac;word-break:break-all;text-align:center;margin:8px 0;text-shadow:0 0 24px rgba(74,222,128,.4)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0}
+.chip{padding:8px 14px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.03);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer}
+.chip.on{color:#fff;border-color:#4ade80;box-shadow:0 0 14px rgba(74,222,128,.35)}
+select{font-family:inherit;color:#fff;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:11px;font-size:13px;max-width:220px}
+.rowbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;justify-content:center}
+.btn{padding:11px 20px;border:1px solid var(--line);border-radius:10px;font-size:13px;font-weight:700;color:#fff;background:rgba(255,255,255,.04);cursor:pointer}
+.btn:hover{border-color:#4ade80}
+.primary{background:linear-gradient(#4ade80,#15803d);border:2px solid #141414;border-radius:4px;color:#04120a}
+h2.st{font:700 20px 'Space Grotesk';margin:0 0 4px}
+.muted{color:var(--muted);font-size:13px}
+pre.tpl{white-space:pre-wrap;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px;font-size:13px;font-family:inherit}
+.fav-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
+.fav-item code{font-family:monospace;color:#86efac}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+footer{text-align:center;padding:34px 20px;color:var(--muted);font-size:12px;border-top:1px solid rgba(255,255,255,.06);margin-top:30px}
+footer strong{color:#fff}
+.visits{margin-top:10px;font-size:13px;color:var(--muted)}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-grid" aria-hidden="true"></div>
+<header>
+  <a class="back" href="https://discohikory.github.io/Portafolio/">← Portafolio</a>
+  <a class="brand" href="#">🌱 Generador de Semillas</a>
+</header>
+<main>
+  <div class="hero-t">
+    <p class="eyebrow">MUNDOS INFINITOS · JAVA + BEDROCK</p>
+    <h1>Generador de Semillas</h1>
+    <p class="lead">Crea una semilla, elige tu bioma soñado y recibe tu guía de inicio con IA.</p>
+  </div>
+  <div class="card glass center" style="text-align:center">
+    <p class="eyebrow">TU SEMILLA</p>
+    <div class="seednum" id="seedNum">—</div>
+    <div class="chips" id="bioChips"></div>
+    <div class="rowbtns" style="align-items:center">
+      <select id="verSel"><option value="Java 1.21">Java 1.21</option><option value="Java 1.20">Java 1.20</option><option value="Bedrock">Bedrock</option></select>
+      <button class="btn primary" id="diceBtn" type="button" style="font-size:15px">🎲 Nueva semilla</button>
+      <button class="btn" id="copySeed" type="button">Copiar 📋</button>
+      <button class="btn" id="favSeed" type="button">⭐ Guardar</button>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card glass">
+      <h2 class="st">🤖 Guía de inicio IA</h2>
+      <p class="muted">Qué buscar, dónde ir y qué construir primero en este mundo.</p>
+      <div class="rowbtns"><button class="btn primary" id="aiGo" type="button">Generar guía ✨</button></div>
+      <div id="aiOut" style="margin-top:12px"></div>
+    </div>
+    <div class="card glass">
+      <h2 class="st">⭐ Favoritas</h2>
+      <div id="favList"><p class="muted">Sin favoritas.</p></div>
+    </div>
+  </div>
+</main>
+<section style="max-width:900px;margin:6px auto 0;padding:0 24px">
+  <div class="card glass">
+    <h2 class="st">🚀 Mis proyectos</h2>
+    <div class="grid2" id="projLinks"></div>
+  </div>
+</section>
+<footer>© 2026 Daniel Esteban Vera Fernandez · <strong>Discohikorybrs</strong> · Todos los derechos reservados.<br><small>Las semillas aleatorias no garantizan biomas: la IA te dice cómo aprovecharlas. Hecho con ⛏️</small><div class="visits">👁 <span id="visitCount">…</span> visitas</div></footer>
+<script>
+const PROJS=[["Portfolio principal","https://discohikory.github.io/Portafolio/"],["Staff Toolkit","https://discohikory.github.io/Staff-Toolkit/"],["Wiki de Comandos","https://discohikory.github.io/Wiki-Comandos/"],["Quiz Staff","https://discohikory.github.io/Quiz-Staff/"],["Status en vivo","https://discohikory.github.io/Server-Status/"],["Guía de Encantamientos","https://discohikory.github.io/Guia-Encantamientos/"],["Crónicas del Staff","https://discohikory.github.io/Cronicas/"],["Centro de comunidad","https://discohikory.github.io/Comunidad/"],["PlayerCards","https://discohikory.github.io/PlayerCards/"],["Radio Gamer","https://discohikory.github.io/Radio-Gamer/"],["Starter Pack","https://discohikory.github.io/Starter-Pack/"],["Aldeano IA","https://discohikory.github.io/Aldeano-IA/"],["Disco AI","https://discohikory.github.io/Disco-AI/"],["Bingo MC","https://discohikory.github.io/Bingo-MC/"]];
+document.getElementById('projLinks').innerHTML=PROJS.map(p=>`<div><h3 style="margin:6px 0">${p[0]}</h3><div class="rowbtns"><a class="btn" href="${p[1]}">Abrir ↗</a></div></div>`).join('');
+const BIOS=["Llanura","Desierto","Jungla","Champiñones","Montañas","Océano","Taiga","Sabana","Cerezo","Cueva frondosa"];
+let bio="Llanura",seed=null;
+const store={get:(k,f)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const bc=document.getElementById('bioChips');
+bc.innerHTML=BIOS.map(b=>`<button class="chip${b===bio?" on":""}" data-bio="${b}">${b}</button>`).join('');
+bc.querySelectorAll('[data-bio]').forEach(b=>b.addEventListener('click',()=>{
+  bio=b.dataset.bio;
+  bc.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===b));
+}));
+function roll(){
+  seed=Math.floor(Math.random()*2000000000)-1000000000;
+  document.getElementById('seedNum').textContent=seed;
+  document.getElementById('aiOut').innerHTML='';
+}
+document.getElementById('diceBtn').addEventListener('click',roll);
+document.getElementById('copySeed').addEventListener('click',async()=>{
+  if(seed==null){alert("Genera una semilla primero. 🎲");return}
+  try{await navigator.clipboard.writeText(String(seed));alert('¡Semilla copiada! 📋')}catch(e){alert('No se pudo copiar.')}
+});
+function paintFavs(){
+  const f=store.get('seed_favs',[]);
+  document.getElementById('favList').innerHTML=f.length?f.map((x,i)=>`<div class="fav-item"><span><code>${x.s}</code> <small class="muted">${x.b} · ${x.v}</small></span><span><button type="button" class="btn" data-fgo="${i}">Usar</button> <button type="button" class="btn" data-fdel="${i}">✕</button></span></div>`).join(''):'<p class="muted">Sin favoritas.</p>';
+}
+document.getElementById('favSeed').addEventListener('click',()=>{
+  if(seed==null){alert("Genera una semilla primero. 🎲");return}
+  const f=store.get('seed_favs',[]);
+  if(!f.some(x=>x.s===seed)&&f.length<20)f.push({s:seed,b:bio,v:document.getElementById('verSel').value});
+  store.set('seed_favs',f);paintFavs();
+});
+document.addEventListener('click',e=>{
+  if(!e.target.closest)return;
+  const g=e.target.closest('[data-fgo]');
+  if(g){const x=store.get('seed_favs',[])[Number(g.dataset.fgo)];if(x){seed=x.s;document.getElementById('seedNum').textContent=seed}return}
+  const d=e.target.closest('[data-fdel]');
+  if(d){const f=store.get('seed_favs',[]);f.splice(Number(d.dataset.fdel),1);store.set('seed_favs',f);paintFavs()}
+});
+paintFavs();
+function aiExtract(r){if(!r)return"";if(typeof r==="string")return r;const m=r.message&&r.message.content;if(typeof m==="string")return m;if(Array.isArray(m))return m.map(p=>typeof p==="string"?p:(p.text||"")).join("");return r.text||r.output||""}
+async function aiChat(prompt){
+  try{if(window.puter&&puter.ai&&puter.ai.chat){const t=aiExtract(await puter.ai.chat(prompt));if(t&&t.trim())return{text:t.trim(),via:"Puter.js"}}}catch(e){console.warn(e)}
+  const res=await fetch("https://text.pollinations.ai/"+encodeURIComponent(prompt));
+  if(!res.ok)throw new Error("HTTP "+res.status);
+  const t=(await res.text()).trim();if(!t)throw new Error("vacío");
+  return{text:t,via:"Pollinations"};
+}
+document.getElementById('aiGo').addEventListener('click',()=>{
+  if(seed==null){alert("Genera una semilla primero. 🎲");return}
+  const box=document.getElementById('aiOut'),btn=document.getElementById('aiGo');
+  const v=document.getElementById('verSel').value;
+  box.innerHTML='<p class="muted">Generando guía… ⏳</p>';btn.disabled=true;
+  aiChat(`Eres guía de Minecraft (español neutro). Semilla ${seed} (${v}), bioma soñado: ${bio}. IMPORTANTE: las semillas aleatorias no garantizan ese bioma; da una guía de inicio realista: primeros 10 minutos, qué buscar según ese bioma, dónde asentarse y 1 meta divertida. Máximo 130 palabras, pasos numerados.`).then(r=>{
+    const d=document.createElement('div');d.className='muted';d.style.cssText='color:var(--text);font-size:13px;white-space:pre-wrap';
+    d.textContent=r.text;
+    box.innerHTML='';
+    box.appendChild(d);
+    const s=document.createElement('small');s.className='muted';s.textContent=`Vía ${r.via} 🤖`;
+    box.appendChild(s);
+  }).catch(()=>{box.innerHTML='<p class="muted">La IA no responde ahora. ⚠️</p>'}).finally(()=>{btn.disabled=false});
+});
+roll();
+(function(){
+  var el=document.getElementById('visitCount');
+  if(!el)return;
+  function fmt(n){n=Number(n)||0;return n>=1000?(n/1000).toFixed(1).replace('.',',').replace(',0','')+' mil':String(n)}
+  fetch('https://api.jsonbin.io/v3/b/6aac6a86ffd5d1605313c161/latest',{headers:{'X-Access-Key':'$2a$10$XbVd43wzBhlIfE1632782ePKNz5e/MaX25U3NJ5JRIBKtJt0ILnXC'}})
+  .then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+    var v=(j.record&&j.record.visits)||{};
+    v.semillas=(v.semillas||0)+1;
+    el.textContent=fmt(v.semillas);
+    fetch('https://api.jsonbin.io/v3/b/6aac6a86ffd5d1605313c161',{method:'PUT',headers:{'Content-Type':'application/json','X-Access-Key':'$2a$10$XbVd43wzBhlIfE1632782ePKNz5e/MaX25U3NJ5JRIBKtJt0ILnXC','X-Bin-Versioning':'false'},body:JSON.stringify({visits:v})}).catch(function(){});
+  }).catch(function(){el.textContent='—'});
+})();
+</script>
+</body>
+</html>
